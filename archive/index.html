@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive — Seth Jahnsen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --text-primary: #1a1a1a;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --link-color: #2a5a8a;
+            --link-hover: #1a3a5a;
+            --bg: #faf9f7;
+            --border: #e0ddd8;
+            --max-width: 640px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 17px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 48px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        header h1 a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        header nav a {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        header nav a:hover {
+            color: var(--text-primary);
+        }
+
+        h2.page-title {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: var(--text-primary);
+        }
+
+        .year-group {
+            margin-bottom: 36px;
+        }
+
+        .year-group h3 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+        }
+
+        .archive-item {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 16px;
+        }
+
+        .archive-item a {
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .archive-item a:hover {
+            color: var(--link-color);
+            border-bottom-color: var(--link-color);
+        }
+
+        .archive-item .date {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            gap: 20px;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 20px 80px;
+            }
+
+            body {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="/">Seth Jahnsen</a></h1>
+            <nav>
+                <a href="/archive">Archive</a>
+            </nav>
+        </header>
+
+        <h2 class="page-title">Archive</h2>
+
+        <div class="year-group">
+            <h3>2026</h3>
+            <div class="archive-item">
+                <a href="#">Title of Your First Post or Essay</a>
+                <span class="date">Jan 2026</span>
+            </div>
+        </div>
+
+        <div class="year-group">
+            <h3>2025</h3>
+            <div class="archive-item">
+                <a href="#">Title of an Older Post</a>
+                <span class="date">Nov 2025</span>
+            </div>
+            <div class="archive-item">
+                <a href="#">Another Older Post</a>
+                <span class="date">Aug 2025</span>
+            </div>
+        </div>
+
+        <footer>
+            <span>&copy; 2026 Seth Jahnsen</span>
+            <a href="mailto:your@email.com">Contact</a>
+        </footer>
+    </div>
+</body>
+</html>
