@@ -1,0 +1,150 @@
+{
+  "lastUpdated": "2026-02-11",
+  "term": "OCT 2025",
+  "cases": [
+    {
+      "id": 1,
+      "name": "Trump v. Slaughter",
+      "docket": "25-87",
+      "status": "Argued",
+      "statusDetail": "Argued Dec. 8, 2025 \u2014 Awaiting decision",
+      "category": "Agency Independence",
+      "urgency": "high",
+      "dateArgued": "2025-12-08",
+      "question": "Whether statutory removal protections for FTC commissioners violate the separation of powers and whether Humphrey\u2019s Executor v. United States should be overruled.",
+      "background": "Trump fired FTC Commissioner Rebecca Slaughter without cause in March 2025, directly challenging the 1935 Humphrey\u2019s Executor precedent that allows Congress to insulate independent agency leaders from at-will presidential removal. Six conservative justices signaled openness to overruling the 90-year precedent during oral arguments.",
+      "firstOrder": [
+        "Presidents gain power to fire and replace members of ~24 independent agencies (FTC, EEOC, NLRB, SEC, FCC, etc.) at will",
+        "Bipartisan commission structure effectively ends \u2014 no requirement for ideological balance",
+        "Humphrey\u2019s Executor (1935) overruled, removing 90 years of precedent insulating agencies from political control"
+      ],
+      "secondOrder": [
+        "Regulatory policy swings wildly with each administration \u2014 businesses face uncertainty as rules are made, unmade, and remade every 4 years",
+        "Agencies lose institutional expertise as career commissioners are replaced by political loyalists without domain knowledge",
+        "Foreign governments and investors lose confidence in U.S. regulatory stability, affecting trade agreements and capital flows",
+        "Congress may attempt to reclaim direct regulatory authority, leading to legislative gridlock on issues currently handled by agencies"
+      ],
+      "sources": ["SCOTUSblog", "NPR", "ABC News"]
+    },
+    {
+      "id": 2,
+      "name": "Trump v. Cook",
+      "docket": "25-xxx",
+      "status": "Argument Scheduled",
+      "statusDetail": "Oral argument Jan. 2026",
+      "category": "Agency Independence",
+      "urgency": "high",
+      "dateArgued": null,
+      "question": "Whether the president can remove Federal Reserve governors without cause, and whether the Fed\u2019s unique structure warrants a carve-out from any ruling on independent agencies.",
+      "background": "Trump attempted to fire Federal Reserve Governor Lisa Cook shortly after the Court carved out an apparent exception for the Fed in its Slaughter-related stay orders. Cook challenged the removal. The case tests whether central bank independence \u2014 considered vital to monetary policy stability \u2014 survives any expansion of presidential removal power.",
+      "firstOrder": [
+        "Presidents could fire and replace Federal Reserve governors to install allies aligned with political goals",
+        "Fed\u2019s ability to set interest rates independently of electoral pressures is compromised",
+        "Central bank credibility \u2014 the foundation of inflation expectations management \u2014 is directly threatened"
+      ],
+      "secondOrder": [
+        "Bond markets reprice U.S. sovereign debt as investors factor in politicized monetary policy, raising borrowing costs for government and consumers",
+        "Dollar\u2019s reserve currency status weakens as global actors question Fed credibility, accelerating de-dollarization trends",
+        "Presidents face temptation to push for low rates before elections, creating boom-bust cycles timed to political calendars",
+        "Other nations\u2019 central banks reconsider bilateral agreements and currency swaps with a politically captured Fed"
+      ],
+      "sources": ["SCOTUSblog", "Ward and Smith P.A."]
+    },
+    {
+      "id": 3,
+      "name": "Kinkley v. United States",
+      "docket": "25-41",
+      "status": "Argued",
+      "statusDetail": "Argued Nov. 5, 2025 \u2014 Awaiting decision",
+      "category": "Executive Authority",
+      "urgency": "high",
+      "dateArgued": "2025-11-05",
+      "question": "Whether the International Emergency Economic Powers Act (IEEPA) authorizes the President to impose tariffs.",
+      "background": "Small businesses and 12 states challenged Trump\u2019s \u2018Liberation Day\u2019 tariffs as exceeding presidential authority under IEEPA. No president has previously used IEEPA to impose tariffs. The Court of International Trade and Federal Circuit both ruled against Trump. Justices appeared skeptical of the tariffs\u2019 legality during oral arguments.",
+      "firstOrder": [
+        "If struck down: $100B+ in collected tariffs may need to be refunded; tariff regime collapses overnight",
+        "If upheld: presidents gain virtually unlimited power to impose tariffs without congressional approval under emergency declarations",
+        "Either outcome redefines the boundary between congressional trade authority and executive emergency powers"
+      ],
+      "secondOrder": [
+        "If struck down: supply chains that reshored based on tariff assumptions face stranded investment costs; Congress pressured to pass statutory tariffs",
+        "If upheld: future presidents (of any party) can weaponize IEEPA for economic policy \u2014 tariffs, sanctions, capital controls \u2014 creating permanent uncertainty for global trade",
+        "Trading partners accelerate diversification away from U.S. market dependence regardless of outcome",
+        "Major questions doctrine is either strengthened (limiting executive overreach) or shown to have limits of its own"
+      ],
+      "sources": ["Britannica", "Washington Post"]
+    },
+    {
+      "id": 4,
+      "name": "NRSC v. FEC",
+      "docket": "24-1260",
+      "status": "Pending",
+      "statusDetail": "Cert granted \u2014 argument TBD",
+      "category": "Separation of Powers",
+      "urgency": "medium",
+      "dateArgued": null,
+      "question": "Whether federal limits on coordinated campaign expenditures between political parties and candidates violate the First Amendment, reconsidering FEC v. Colorado Republican (2001).",
+      "background": "The National Republican Senatorial Committee and others argue that the Court\u2019s 2001 decision upholding limits on coordinated party spending should be overturned in light of more recent First Amendment jurisprudence tightening restrictions on campaign finance regulation.",
+      "firstOrder": [
+        "Parties can spend unlimited amounts in direct coordination with their candidates\u2019 campaigns",
+        "Distinction between \u2018independent\u2019 and \u2018coordinated\u2019 expenditures effectively disappears for parties",
+        "FEC\u2019s enforcement framework for party coordination limits becomes unenforceable"
+      ],
+      "secondOrder": [
+        "Power consolidates back to party leadership \u2014 candidates become more dependent on party apparatus, reducing maverick and independent-minded legislators",
+        "Dark money flows shift: donors route through party structures instead of Super PACs, changing accountability dynamics",
+        "Smaller third parties gain no benefit (lack fundraising infrastructure), widening the two-party advantage",
+        "State-level campaign finance laws modeled on federal coordination limits face immediate legal challenges"
+      ],
+      "sources": ["SCOTUSblog"]
+    },
+    {
+      "id": 5,
+      "name": "Louisiana v. Callais",
+      "docket": "24-175",
+      "status": "Re-argument Scheduled",
+      "statusDetail": "Rescheduled from 2024\u201325 term",
+      "category": "Separation of Powers",
+      "urgency": "medium",
+      "dateArgued": null,
+      "question": "Whether Louisiana\u2019s creation of a second majority-Black congressional district constitutes an unconstitutional racial gerrymander under the 14th and 15th Amendments.",
+      "background": "The Court was unable to reach a decision in the 2024\u201325 term and rescheduled the case. Conservative justices appeared sympathetic to arguments that race played too large a role in redistricting. The case pits the Voting Rights Act\u2019s Section 2 requirements against the Equal Protection Clause.",
+      "firstOrder": [
+        "States may no longer be required (or allowed) to draw majority-minority districts to comply with the Voting Rights Act",
+        "Section 2 of the VRA is functionally gutted as a redistricting tool \u2014 states can\u2019t use race even to remedy discrimination",
+        "Louisiana\u2019s second Black-majority district is struck down, reducing Black representation in Congress"
+      ],
+      "secondOrder": [
+        "Nationwide redistricting wave: states redraw maps to eliminate existing majority-minority districts, shifting 10\u201320 congressional seats",
+        "Voting Rights Act becomes a hollow statute \u2014 unable to compel redistricting remedies, its enforcement mechanism collapses",
+        "Civil rights organizations pivot strategy from courts to ballot initiatives and grassroots organizing",
+        "Paradox: race can\u2019t be used to remedy discrimination but partisan gerrymandering (which correlates with race) remains legal, entrenching structural disadvantage"
+      ],
+      "sources": ["Washington Post", "Britannica", "MultiState"]
+    },
+    {
+      "id": 6,
+      "name": "Dept. of Education v. California",
+      "docket": "Emergency Docket",
+      "status": "Decided",
+      "statusDetail": "Stay granted \u2014 Allowed workforce cuts",
+      "category": "Executive Authority",
+      "urgency": "low",
+      "dateArgued": null,
+      "question": "Whether the administration can proceed with slashing Education Department workforce while legal challenges continue.",
+      "background": "The Supreme Court vacated a district court order requiring reinstatement of terminated grants and allowed the administration to proceed with cutting over a third of the Education Department workforce. Justice Sotomayor issued a dissenting opinion calling it a major expansion of presidential power.",
+      "firstOrder": [
+        "Executive can proceed with large-scale agency downsizing while legal challenges are still pending",
+        "District courts\u2019 ability to preserve the status quo via injunctions is weakened on the emergency docket",
+        "Education Department loses institutional capacity that may be impossible to rebuild even if courts later rule the cuts unlawful"
+      ],
+      "secondOrder": [
+        "Template established for dismantling other agencies \u2014 future administrations can slash first, litigate later, knowing the Court won\u2019t intervene",
+        "Federal employees across all agencies face chilling effect: institutional knowledge holders leave voluntarily, anticipating cuts",
+        "States must absorb functions previously handled by federal Education Dept., creating unfunded mandates and regional inequality",
+        "Irreversibility problem becomes the norm: by the time courts rule, the harm is done and there\u2019s no practical remedy"
+      ],
+      "sources": ["NGA", "Northeastern University"]
+    }
+  ]
+}
