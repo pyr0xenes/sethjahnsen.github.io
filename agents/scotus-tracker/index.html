@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCOTUS Tracker — Seth Jahnsen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Sans:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #FAFAF8; }
+
+        /* Site nav bar */
+        .site-nav {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-family: 'Source Serif 4', Georgia, serif;
+        }
+        .site-nav h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        .site-nav h1 a {
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+        .site-nav nav {
+            display: flex;
+            gap: 20px;
+        }
+        .site-nav nav a {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: #555;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        .site-nav nav a:hover {
+            color: #1a1a1a;
+        }
+
+        /* Loading animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-nav">
+        <h1><a href="/">Seth Jahnsen</a></h1>
+        <nav>
+            <a href="/archive">Archive</a>
+            <a href="/agents">Agents</a>
+        </nav>
+    </div>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback } = React;
+
+        const CASES = [
+            {
+                id: 1,
+                name: "Trump v. Slaughter",
+                docket: "25-87",
+                status: "Argued",
+                statusDetail: "Argued Dec. 8, 2025 — Awaiting decision",
+                category: "Agency Independence",
+                urgency: "high",
+                dateArgued: "2025-12-08",
+                question: "Whether statutory removal protections for FTC commissioners violate the separation of powers and whether Humphrey's Executor v. United States should be overruled.",
+                background: "Trump fired FTC Commissioner Rebecca Slaughter without cause in March 2025, directly challenging the 1935 Humphrey's Executor precedent that allows Congress to insulate independent agency leaders from at-will presidential removal. Six conservative justices signaled openness to overruling the 90-year precedent during oral arguments.",
+                firstOrder: [
+                    "Presidents gain power to fire and replace members of ~24 independent agencies (FTC, EEOC, NLRB, SEC, FCC, etc.) at will",
+                    "Bipartisan commission structure effectively ends — no requirement for ideological balance",
+                    "Humphrey's Executor (1935) overruled, removing 90 years of precedent insulating agencies from political control",
+                ],
+                secondOrder: [
+                    "Regulatory policy swings wildly with each administration — businesses face uncertainty as rules are made, unmade, and remade every 4 years",
+                    "Agencies lose institutional expertise as career commissioners are replaced by political loyalists without domain knowledge",
+                    "Foreign governments and investors lose confidence in U.S. regulatory stability, affecting trade agreements and capital flows",
+                    "Congress may attempt to reclaim direct regulatory authority, leading to legislative gridlock on issues currently handled by agencies",
+                ],
+                sources: ["SCOTUSblog", "NPR", "ABC News"],
+            },
+            {
+                id: 2,
+                name: "Trump v. Cook",
+                docket: "25-xxx",
+                status: "Argument Scheduled",
+                statusDetail: "Oral argument Jan. 2026",
+                category: "Agency Independence",
+                urgency: "high",
+                dateArgued: null,
+                question: "Whether the president can remove Federal Reserve governors without cause, and whether the Fed's unique structure warrants a carve-out from any ruling on independent agencies.",
+                background: "Trump attempted to fire Federal Reserve Governor Lisa Cook shortly after the Court carved out an apparent exception for the Fed in its Slaughter-related stay orders. Cook challenged the removal. The case tests whether central bank independence — considered vital to monetary policy stability — survives any expansion of presidential removal power.",
+                firstOrder: [
+                    "Presidents could fire and replace Federal Reserve governors to install allies aligned with political goals",
+                    "Fed's ability to set interest rates independently of electoral pressures is compromised",
+                    "Central bank credibility — the foundation of inflation expectations management — is directly threatened",
+                ],
+                secondOrder: [
+                    "Bond markets reprice U.S. sovereign debt as investors factor in politicized monetary policy, raising borrowing costs for government and consumers",
+                    "Dollar's reserve currency status weakens as global actors question Fed credibility, accelerating de-dollarization trends",
+                    "Presidents face temptation to push for low rates before elections, creating boom-bust cycles timed to political calendars",
+                    "Other nations' central banks reconsider bilateral agreements and currency swaps with a politically captured Fed",
+                ],
+                sources: ["SCOTUSblog", "Ward and Smith P.A."],
+            },
+            {
+                id: 3,
+                name: "Kinkley v. United States",
+                docket: "25-41",
+                status: "Argued",
+                statusDetail: "Argued Nov. 5, 2025 — Awaiting decision",
+                category: "Executive Authority",
+                urgency: "high",
+                dateArgued: "2025-11-05",
+                question: "Whether the International Emergency Economic Powers Act (IEEPA) authorizes the President to impose tariffs.",
+                background: "Small businesses and 12 states challenged Trump's 'Liberation Day' tariffs as exceeding presidential authority under IEEPA. No president has previously used IEEPA to impose tariffs. The Court of International Trade and Federal Circuit both ruled against Trump. Justices appeared skeptical of the tariffs' legality during oral arguments.",
+                firstOrder: [
+                    "If struck down: $100B+ in collected tariffs may need to be refunded; tariff regime collapses overnight",
+                    "If upheld: presidents gain virtually unlimited power to impose tariffs without congressional approval under emergency declarations",
+                    "Either outcome redefines the boundary between congressional trade authority and executive emergency powers",
+                ],
+                secondOrder: [
+                    "If struck down: supply chains that reshored based on tariff assumptions face stranded investment costs; Congress pressured to pass statutory tariffs",
+                    "If upheld: future presidents (of any party) can weaponize IEEPA for economic policy — tariffs, sanctions, capital controls — creating permanent uncertainty for global trade",
+                    "Trading partners accelerate diversification away from U.S. market dependence regardless of outcome",
+                    "Major questions doctrine is either strengthened (limiting executive overreach) or shown to have limits of its own",
+                ],
+                sources: ["Britannica", "Washington Post"],
+            },
+            {
+                id: 4,
+                name: "NRSC v. FEC",
+                docket: "24-1260",
+                status: "Pending",
+                statusDetail: "Cert granted — argument TBD",
+                category: "Separation of Powers",
+                urgency: "medium",
+                dateArgued: null,
+                question: "Whether federal limits on coordinated campaign expenditures between political parties and candidates violate the First Amendment, reconsidering FEC v. Colorado Republican (2001).",
+                background: "The National Republican Senatorial Committee and others argue that the Court's 2001 decision upholding limits on coordinated party spending should be overturned in light of more recent First Amendment jurisprudence tightening restrictions on campaign finance regulation.",
+                firstOrder: [
+                    "Parties can spend unlimited amounts in direct coordination with their candidates' campaigns",
+                    "Distinction between 'independent' and 'coordinated' expenditures effectively disappears for parties",
+                    "FEC's enforcement framework for party coordination limits becomes unenforceable",
+                ],
+                secondOrder: [
+                    "Power consolidates back to party leadership — candidates become more dependent on party apparatus, reducing maverick and independent-minded legislators",
+                    "Dark money flows shift: donors route through party structures instead of Super PACs, changing accountability dynamics",
+                    "Smaller third parties gain no benefit (lack fundraising infrastructure), widening the two-party advantage",
+                    "State-level campaign finance laws modeled on federal coordination limits face immediate legal challenges",
+                ],
+                sources: ["SCOTUSblog"],
+            },
+            {
+                id: 5,
+                name: "Louisiana v. Callais",
+                docket: "24-175",
+                status: "Re-argument Scheduled",
+                statusDetail: "Rescheduled from 2024–25 term",
+                category: "Separation of Powers",
+                urgency: "medium",
+                dateArgued: null,
+                question: "Whether Louisiana's creation of a second majority-Black congressional district constitutes an unconstitutional racial gerrymander under the 14th and 15th Amendments.",
+                background: "The Court was unable to reach a decision in the 2024–25 term and rescheduled the case. Conservative justices appeared sympathetic to arguments that race played too large a role in redistricting. The case pits the Voting Rights Act's Section 2 requirements against the Equal Protection Clause.",
+                firstOrder: [
+                    "States may no longer be required (or allowed) to draw majority-minority districts to comply with the Voting Rights Act",
+                    "Section 2 of the VRA is functionally gutted as a redistricting tool — states can't use race even to remedy discrimination",
+                    "Louisiana's second Black-majority district is struck down, reducing Black representation in Congress",
+                ],
+                secondOrder: [
+                    "Nationwide redistricting wave: states redraw maps to eliminate existing majority-minority districts, shifting 10–20 congressional seats",
+                    "Voting Rights Act becomes a hollow statute — unable to compel redistricting remedies, its enforcement mechanism collapses",
+                    "Civil rights organizations pivot strategy from courts to ballot initiatives and grassroots organizing",
+                    "Paradox: race can't be used to remedy discrimination but partisan gerrymandering (which correlates with race) remains legal, entrenching structural disadvantage",
+                ],
+                sources: ["Washington Post", "Britannica", "MultiState"],
+            },
+            {
+                id: 6,
+                name: "Dept. of Education v. California",
+                docket: "Emergency Docket",
+                status: "Decided",
+                statusDetail: "Stay granted — Allowed workforce cuts",
+                category: "Executive Authority",
+                urgency: "low",
+                dateArgued: null,
+                question: "Whether the administration can proceed with slashing Education Department workforce while legal challenges continue.",
+                background: "The Supreme Court vacated a district court order requiring reinstatement of terminated grants and allowed the administration to proceed with cutting over a third of the Education Department workforce. Justice Sotomayor issued a dissenting opinion calling it a major expansion of presidential power.",
+                firstOrder: [
+                    "Executive can proceed with large-scale agency downsizing while legal challenges are still pending",
+                    "District courts' ability to preserve the status quo via injunctions is weakened on the emergency docket",
+                    "Education Department loses institutional capacity that may be impossible to rebuild even if courts later rule the cuts unlawful",
+                ],
+                secondOrder: [
+                    "Template established for dismantling other agencies — future administrations can slash first, litigate later, knowing the Court won't intervene",
+                    "Federal employees across all agencies face chilling effect: institutional knowledge holders leave voluntarily, anticipating cuts",
+                    "States must absorb functions previously handled by federal Education Dept., creating unfunded mandates and regional inequality",
+                    "Irreversibility problem becomes the norm: by the time courts rule, the harm is done and there's no practical remedy",
+                ],
+                sources: ["NGA", "Northeastern University"],
+            },
+        ];
+
+        const CATEGORIES = ["All", "Agency Independence", "Executive Authority", "Separation of Powers"];
+
+        const STATUS_COLORS = {
+            "Argued": { bg: "#FFF3E0", text: "#E65100", dot: "#FF6D00" },
+            "Argument Scheduled": { bg: "#E3F2FD", text: "#0D47A1", dot: "#2979FF" },
+            "Pending": { bg: "#F3E5F5", text: "#6A1B9A", dot: "#AA00FF" },
+            "Re-argument Scheduled": { bg: "#E8F5E9", text: "#1B5E20", dot: "#00C853" },
+            "Decided": { bg: "#ECEFF1", text: "#37474F", dot: "#78909C" },
+        };
+
+        const URGENCY_INDICATOR = { high: "\u25C9", medium: "\u25CE", low: "\u25CB" };
+
+        function Header() {
+            return (
+                <div style={styles.header}>
+                    <div style={styles.headerInner}>
+                        <div style={styles.headerLeft}>
+                            <div style={styles.logoMark}>{"\u00A7"}</div>
+                            <div>
+                                <h1 style={styles.title}>SCOTUS Tracker</h1>
+                                <p style={styles.subtitle}>Structural & Executive Power Cases — 2025–26 Term</p>
+                            </div>
+                        </div>
+                        <div style={styles.headerRight}>
+                            <div style={styles.termBadge}>OCT 2025 TERM</div>
+                            <div style={styles.lastUpdated}>
+                                Updated {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function StatBar() {
+            const argued = CASES.filter(c => c.status === "Argued").length;
+            const pending = CASES.filter(c => c.status !== "Argued" && c.status !== "Decided").length;
+            const decided = CASES.filter(c => c.status === "Decided").length;
+            const highUrgency = CASES.filter(c => c.urgency === "high").length;
+
+            return (
+                <div style={styles.statBar}>
+                    {[
+                        { label: "Tracking", value: CASES.length, accent: "#1a1a2e" },
+                        { label: "Argued", value: argued, accent: "#E65100" },
+                        { label: "Pending", value: pending, accent: "#2979FF" },
+                        { label: "Decided", value: decided, accent: "#78909C" },
+                        { label: "High Impact", value: highUrgency, accent: "#D50000" },
+                    ].map(s => (
+                        <div key={s.label} style={styles.statItem}>
+                            <div style={{ ...styles.statValue, color: s.accent }}>{s.value}</div>
+                            <div style={styles.statLabel}>{s.label}</div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function CategoryFilter({ active, onSelect }) {
+            return (
+                <div style={styles.filterRow}>
+                    {CATEGORIES.map(cat => (
+                        <button
+                            key={cat}
+                            onClick={() => onSelect(cat)}
+                            style={active === cat ? { ...styles.filterBtn, ...styles.filterBtnActive } : styles.filterBtn}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+            );
+        }
+
+        function CaseCard({ c, isExpanded, onToggle }) {
+            const statusStyle = STATUS_COLORS[c.status] || STATUS_COLORS["Pending"];
+
+            return (
+                <div
+                    style={{ ...styles.card, borderLeft: "4px solid " + statusStyle.dot }}
+                    onClick={onToggle}
+                >
+                    <div style={styles.cardHeader}>
+                        <div style={styles.cardHeaderLeft}>
+                            <span style={{
+                                ...styles.urgencyDot,
+                                color: c.urgency === "high" ? "#D50000" : c.urgency === "medium" ? "#FF6D00" : "#78909C",
+                            }}>
+                                {URGENCY_INDICATOR[c.urgency]}
+                            </span>
+                            <h3 style={styles.caseName}>{c.name}</h3>
+                            {c.urgency === "high" && <span style={styles.highImpactTag}>HIGH IMPACT</span>}
+                        </div>
+                        <div style={styles.cardHeaderRight}>
+                            <span style={{
+                                ...styles.statusBadge,
+                                backgroundColor: statusStyle.bg,
+                                color: statusStyle.text,
+                            }}>
+                                <span style={{ ...styles.statusDot, backgroundColor: statusStyle.dot }} />
+                                {c.status}
+                            </span>
+                            <span style={styles.expandIcon}>{isExpanded ? "\u2212" : "+"}</span>
+                        </div>
+                    </div>
+
+                    <div style={styles.cardMeta}>
+                        <span style={styles.metaTag}>{c.category}</span>
+                        <span style={styles.metaDivider}>{"\u00B7"}</span>
+                        <span style={styles.metaText}>{c.statusDetail}</span>
+                    </div>
+
+                    <p style={styles.question}>{c.question}</p>
+
+                    {isExpanded && (
+                        <div style={styles.expandedContent}>
+                            <div style={styles.section}>
+                                <h4 style={styles.sectionTitle}>Background</h4>
+                                <p style={styles.sectionText}>{c.background}</p>
+                            </div>
+
+                            <div style={styles.section}>
+                                <h4 style={styles.sectionTitle}>
+                                    <span style={styles.orderBadge1}>1st</span> Direct Effects
+                                </h4>
+                                <div style={styles.effectsList}>
+                                    {c.firstOrder.map((eff, i) => (
+                                        <div key={i} style={styles.effectItem1}>
+                                            <span style={styles.effectArrow1}>{"\u2192"}</span>
+                                            <span>{eff}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div style={styles.section}>
+                                <h4 style={styles.sectionTitle}>
+                                    <span style={styles.orderBadge2}>2nd</span> Downstream Effects
+                                </h4>
+                                <div style={styles.effectsList}>
+                                    {c.secondOrder.map((eff, i) => (
+                                        <div key={i} style={styles.effectItem2}>
+                                            <span style={styles.effectArrow2}>{"\u21E2"}</span>
+                                            <span>{eff}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div style={styles.cardFooter}>
+                                <div style={styles.sourcesRow}>
+                                    {c.sources.map(s => (
+                                        <span key={s} style={styles.sourceChip}>{s}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function SCOTUSTracker() {
+            const [filter, setFilter] = useState("All");
+            const [expanded, setExpanded] = useState(new Set([1]));
+
+            const toggleExpand = useCallback(id => {
+                setExpanded(prev => {
+                    const next = new Set(prev);
+                    next.has(id) ? next.delete(id) : next.add(id);
+                    return next;
+                });
+            }, []);
+
+            const filtered = filter === "All" ? CASES : CASES.filter(c => c.category === filter);
+
+            return (
+                <div style={styles.container}>
+                    <Header />
+                    <div style={styles.content}>
+                        <StatBar />
+                        <CategoryFilter active={filter} onSelect={setFilter} />
+                        <div style={styles.caseList}>
+                            {filtered.map(c => (
+                                <CaseCard
+                                    key={c.id}
+                                    c={c}
+                                    isExpanded={expanded.has(c.id)}
+                                    onToggle={() => toggleExpand(c.id)}
+                                />
+                            ))}
+                        </div>
+                        <div style={styles.trackerFooter}>
+                            <p style={styles.footerText}>
+                                Data sourced from SCOTUSblog, Ballotpedia, and court filings.
+                                This tracker covers cases with structural and executive power
+                                implications for the 2025–26 term.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        const styles = {
+            container: { fontFamily: "'Newsreader', 'Georgia', serif", backgroundColor: "#FAFAF8", color: "#1a1a2e" },
+            header: { background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)", padding: 0, borderBottom: "3px solid #e8c547" },
+            headerInner: { maxWidth: 900, margin: "0 auto", padding: "28px 24px 24px", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 16 },
+            headerLeft: { display: "flex", alignItems: "center", gap: 16 },
+            logoMark: { fontFamily: "'Newsreader', Georgia, serif", fontSize: 42, fontWeight: 700, color: "#e8c547", lineHeight: 1 },
+            title: { fontSize: 26, fontWeight: 700, color: "#FFFFFF", margin: 0, letterSpacing: "0.5px" },
+            subtitle: { fontSize: 13, color: "#a0aec0", margin: "4px 0 0", fontFamily: "'Helvetica Neue', sans-serif", letterSpacing: "0.3px" },
+            headerRight: { textAlign: "right" },
+            termBadge: { display: "inline-block", fontSize: 11, fontFamily: "'Helvetica Neue', sans-serif", fontWeight: 700, color: "#e8c547", letterSpacing: "1.5px", border: "1px solid rgba(232,197,71,0.4)", padding: "4px 10px", borderRadius: 3 },
+            lastUpdated: { fontSize: 11, color: "#718096", marginTop: 6, fontFamily: "'Helvetica Neue', sans-serif" },
+            content: { maxWidth: 900, margin: "0 auto", padding: "0 24px 60px" },
+            statBar: { display: "flex", gap: 0, margin: "24px 0", background: "#fff", borderRadius: 8, border: "1px solid #e2e2dc", overflow: "hidden" },
+            statItem: { flex: 1, textAlign: "center", padding: "18px 12px", borderRight: "1px solid #eee" },
+            statValue: { fontSize: 28, fontWeight: 700, fontFamily: "'Helvetica Neue', sans-serif" },
+            statLabel: { fontSize: 11, color: "#666", marginTop: 2, fontFamily: "'Helvetica Neue', sans-serif", textTransform: "uppercase", letterSpacing: "0.8px" },
+            filterRow: { display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" },
+            filterBtn: { padding: "8px 16px", fontSize: 13, fontFamily: "'Helvetica Neue', sans-serif", border: "1px solid #d4d4cc", borderRadius: 20, background: "#fff", color: "#555", cursor: "pointer", transition: "all 0.15s", fontWeight: 500 },
+            filterBtnActive: { background: "#1a1a2e", color: "#fff", borderColor: "#1a1a2e" },
+            caseList: { display: "flex", flexDirection: "column", gap: 12 },
+            card: { background: "#fff", borderRadius: 8, padding: "20px 24px", cursor: "pointer", border: "1px solid #e8e8e2", transition: "box-shadow 0.15s, transform 0.1s", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" },
+            cardHeader: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 },
+            cardHeaderLeft: { display: "flex", alignItems: "center", gap: 10 },
+            urgencyDot: { fontSize: 14, lineHeight: 1 },
+            caseName: { fontSize: 19, fontWeight: 700, margin: 0, fontStyle: "italic" },
+            highImpactTag: { fontSize: 9, fontFamily: "'Helvetica Neue', sans-serif", fontWeight: 700, color: "#D50000", letterSpacing: "1px", padding: "2px 7px", border: "1px solid #FFCDD2", borderRadius: 3, backgroundColor: "#FFF5F5" },
+            cardHeaderRight: { display: "flex", alignItems: "center", gap: 12 },
+            statusBadge: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, fontFamily: "'Helvetica Neue', sans-serif", fontWeight: 600, padding: "4px 12px", borderRadius: 12 },
+            statusDot: { width: 7, height: 7, borderRadius: "50%", display: "inline-block" },
+            expandIcon: { fontSize: 20, color: "#999", fontWeight: 300, width: 24, textAlign: "center", fontFamily: "'Helvetica Neue', sans-serif" },
+            cardMeta: { display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 12, fontFamily: "'Helvetica Neue', sans-serif", color: "#666" },
+            metaTag: { fontWeight: 600, color: "#555" },
+            metaDivider: { color: "#ccc" },
+            metaText: {},
+            question: { fontSize: 14, lineHeight: 1.6, color: "#444", marginTop: 12, marginBottom: 0, fontFamily: "'Helvetica Neue', sans-serif" },
+            expandedContent: { marginTop: 20, paddingTop: 20, borderTop: "1px solid #eee" },
+            section: { marginBottom: 20 },
+            sectionTitle: { fontSize: 11, fontFamily: "'Helvetica Neue', sans-serif", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1.2px", color: "#888", margin: "0 0 10px" },
+            sectionText: { fontSize: 14, lineHeight: 1.7, color: "#333", margin: 0, fontFamily: "'Helvetica Neue', sans-serif" },
+            effectsList: { display: "flex", flexDirection: "column", gap: 8 },
+            effectItem1: { display: "flex", gap: 10, fontSize: 14, lineHeight: 1.5, color: "#1a1a2e", fontFamily: "'Helvetica Neue', sans-serif", fontWeight: 500 },
+            effectArrow1: { color: "#e8c547", fontWeight: 700, flexShrink: 0, fontSize: 15 },
+            effectItem2: { display: "flex", gap: 10, fontSize: 13, lineHeight: 1.55, color: "#555", fontFamily: "'Helvetica Neue', sans-serif", paddingLeft: 4, borderLeft: "2px solid #e8e8e2", marginLeft: 2, paddingTop: 2, paddingBottom: 2 },
+            effectArrow2: { color: "#aaa", fontWeight: 400, flexShrink: 0, fontSize: 14 },
+            orderBadge1: { display: "inline-block", fontSize: 9, fontWeight: 800, color: "#fff", backgroundColor: "#1a1a2e", padding: "2px 6px", borderRadius: 3, marginRight: 8, verticalAlign: "middle", letterSpacing: "0.5px" },
+            orderBadge2: { display: "inline-block", fontSize: 9, fontWeight: 800, color: "#fff", backgroundColor: "#78909C", padding: "2px 6px", borderRadius: 3, marginRight: 8, verticalAlign: "middle", letterSpacing: "0.5px" },
+            cardFooter: { display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16, paddingTop: 16, borderTop: "1px solid #f0f0ec", flexWrap: "wrap", gap: 12 },
+            sourcesRow: { display: "flex", gap: 6, flexWrap: "wrap" },
+            sourceChip: { fontSize: 10, fontFamily: "'Helvetica Neue', sans-serif", color: "#777", padding: "3px 8px", borderRadius: 4, backgroundColor: "#f5f5f0", fontWeight: 500 },
+            trackerFooter: { marginTop: 40, padding: "24px 0", borderTop: "2px solid #e2e2dc", textAlign: "center" },
+            footerText: { fontSize: 12, fontFamily: "'Helvetica Neue', sans-serif", color: "#999", lineHeight: 1.6, maxWidth: 600, margin: "0 auto" },
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<SCOTUSTracker />);
+    </script>
+</body>
+</html>
